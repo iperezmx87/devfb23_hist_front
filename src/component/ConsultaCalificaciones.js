@@ -52,8 +52,9 @@ class ConsultaCalificaciones extends Component {
     }
 
     clearForm = () => {
+        document.getElementById('txtBusqueda').value = "";
+        document.getElementById('txtBusqueda').focus();
         this.setState({
-            busqueda:"",
             resultados:[{}],
             calificaciones:[{Calificacion:{}}]
         });
@@ -89,12 +90,11 @@ class ConsultaCalificaciones extends Component {
                         <Table hover>
                             <thead>
                                 <tr>
+                                    <th>Matrícula</th>
                                     <th>Nombre</th>
                                     <th>Apellido Paterno</th>
                                     <th>Apellido Materno</th>
-                                    <th>Matrícula</th>
                                     <th>Plantel</th>
-                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -102,7 +102,7 @@ class ConsultaCalificaciones extends Component {
                                     this.state.resultados.map((alumno, index) =>             
                                     <tr key={index}>
                                         <td>
-                                        <a href="#" onClick={this.cargarCalificaciones} id={alumno._id}>{alumno.Matricula}</a>
+                                            <a href="#" onClick={this.cargarCalificaciones} id={alumno._id}>{alumno.Matricula}</a>
                                         </td>
                                         <td>
                                             {alumno.Nombre}

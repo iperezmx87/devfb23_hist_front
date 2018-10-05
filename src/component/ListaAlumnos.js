@@ -239,22 +239,22 @@ class ListaAlumnos extends Component {
 
                         <FormGroup>
                             <Label for="txtCreditos">Créditos</Label>
-                            <Input type="number" name="Creditos" id="txtCreditos" placeholder="" required onChange={this.onChange}  />
+                            <Input type="number" min="0" name="Creditos" id="txtCreditos" placeholder="" required onChange={this.onChange}  />
                         </FormGroup>
                         
                         <FormGroup>
                             <Label for="txtSemestre">Semestre</Label>
-                            <Input type="number" name="Semestre" id="txtSemestre" required onChange={this.onChange}  />                            
+                            <Input type="number" min="0" name="Semestre" id="txtSemestre" required onChange={this.onChange}  />                            
                         </FormGroup>
 
                         <FormGroup>
-                            <Label for="txtEvaluacion">Evaluación</Label>
+                            <Label for="txtEvaluacion">Evaluación (Ordinario, Extraordinario)</Label>
                             <Input type="text" name="Evaluacion" id="txtEvaluacion" required onChange={this.onChange}  />                            
                         </FormGroup>
 
                         <FormGroup>
                             <Label for="txtCalificacion">Calificación</Label>
-                            <Input type="text" name="Calificacion" id="txtCalificacion" required onChange={this.onChange}  />                            
+                            <Input type="number" min="0" name="Calificacion" id="txtCalificacion" required onChange={this.onChange}  />                            
                         </FormGroup>
 
                         <FormGroup className="float-right">
