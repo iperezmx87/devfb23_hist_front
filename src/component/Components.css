@@ -37,7 +37,7 @@
     font-size: 30px;
 }
 
-.dvResultados{
+.dvResultados, .dvCalificaciones{
     max-height: 250px;
     overflow-y: auto;
 }
