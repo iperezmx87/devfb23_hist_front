@@ -18,6 +18,9 @@ class Alumno extends Component {
                     </a>
                </td>
                <td>
+               {this.props.Plantel}
+               </td>
+               <td>
                    <Button color="danger" onClick={this.props.eliminarAlumno} id={this.props.IdAlumno} >Eliminar</Button>
                </td>
                <td id={this.props.IdAlumno} className="tdHidden"></td>

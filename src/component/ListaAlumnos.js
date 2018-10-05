@@ -124,7 +124,7 @@ class ListaAlumnos extends Component {
                                                                            IdAlumno={alumno._id}
                                                                            key={index}
                                                                            eliminarAlumno={this.eliminarAlumno}
-                                                                           Plantel={this.alumno.Plantel != undefined ? this.alumno.Plantel : ""} />)
+                                                                           Plantel={alumno.Plantel != undefined ? alumno.Plantel : ""} />)
                             }
                         </tbody>
                     </Table>
