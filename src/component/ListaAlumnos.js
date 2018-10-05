@@ -24,7 +24,15 @@ class ListaAlumnos extends Component {
             ApellidoMaterno:"",
             ApellidoPaterno:"",
             Matricula:"",
-            Plantel:""
+            Plantel:"",
+            modalCalif:false,
+            idAlumnoSeleccionado:"",
+
+            Asignatura:"",
+            Creditos:0,
+            Semestre:0,
+            Evaluacion:"",
+            Calificacion:""
         };
     }
 
@@ -64,6 +72,36 @@ class ListaAlumnos extends Component {
         });
     }
 
+    calificarAlumno = (e) => {
+        e.preventDefault();
+        let requestBody={
+            AlumnoId:this.state.idAlumnoSeleccionado,
+            Asignatura:{
+                Nombre:this.state.Asignatura,
+                Creditos:this.state.Creditos,
+                Semestre:this.state.Semestre,
+                Calificacion:{
+                    Evaluacion:this.state.Evaluacion,
+                    Calificacion:this.state.Calificacion
+                }
+            }
+        };
+
+        axios.post(`${Constantes.getUrl_api()}alumno/calificacion/`, requestBody)
+        .then(response =>{
+            if(response.status === 200){
+                alert(response.data.message);
+                this.setState({
+                    modalCalif:false,
+                    idAlumnoSeleccionado:""
+                });
+            }else{
+                alert(response.data.message);
+            }
+        })
+        .catch(error => alert(error));
+    }
+
     onChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value
@@ -77,15 +115,29 @@ class ListaAlumnos extends Component {
     }
 
     eliminarAlumno = (e) =>{
-        alert(e.target.id);
-        
         axios.delete(`${Constantes.getUrl_api()}alumno/${e.target.id}/`)
         .then((response) => {
             alert("Alumno eliminado correctamente");
+            this.cargarAlumnos();
         })
         .catch((error) => {
             alert(error);
         });
+    }
+
+    abrirModalCalificaciones = (idAlumno) => {
+        // get info alumno completo con calificaciones
+       // alert(idAlumno);
+        this.setState({
+            modalCalif:true,
+            idAlumnoSeleccionado:idAlumno
+        });
+    }
+
+    closeDialogCalif = () =>{
+        this.setState({
+            modalCalif:false
+        })
     }
 
     render() { 
@@ -124,7 +176,8 @@ class ListaAlumnos extends Component {
                                                                            IdAlumno={alumno._id}
                                                                            key={index}
                                                                            eliminarAlumno={this.eliminarAlumno}
-                                                                           Plantel={alumno.Plantel != undefined ? alumno.Plantel : ""} />)
+                                                                           Plantel={alumno.Plantel !== undefined ? alumno.Plantel : ""}
+                                                                           abrirModalCalificaciones = {this.abrirModalCalificaciones} />)
                             }
                         </tbody>
                     </Table>
@@ -162,7 +215,7 @@ class ListaAlumnos extends Component {
                             </FormGroup>
 
                              <FormGroup>
-                                <Label for="txtPlantel">Matrícula</Label>
+                                <Label for="txtPlantel">Plantel</Label>
                                 <Input type="text" name="Plantel" id="txtPlantel" placeholder="Plantel" required onChange={this.onChange} />
                             </FormGroup>
 
@@ -174,6 +227,44 @@ class ListaAlumnos extends Component {
                         </Form>
                     </ModalBody>
                 </Modal>               
+            
+                <Modal isOpen={this.state.modalCalif} size={"lg"} id="modalCalificaciones">
+                <ModalHeader>Ingresar Calificación</ModalHeader>
+                    <ModalBody>
+                        <Form onSubmit={this.calificarAlumno}>
+                        <FormGroup>
+                            <Label for="txtAsingnatura">Asignatura</Label>
+                            <Input type="text" name="Asignatura" id="txtAsignatura" placeholder="" required onChange={this.onChange}  /> 
+                        </FormGroup>
+
+                        <FormGroup>
+                            <Label for="txtCreditos">Créditos</Label>
+                            <Input type="number" name="Creditos" id="txtCreditos" placeholder="" required onChange={this.onChange}  />
+                        </FormGroup>
+                        
+                        <FormGroup>
+                            <Label for="txtSemestre">Semestre</Label>
+                            <Input type="number" name="Semestre" id="txtSemestre" required onChange={this.onChange}  />                            
+                        </FormGroup>
+
+                        <FormGroup>
+                            <Label for="txtEvaluacion">Evaluación</Label>
+                            <Input type="text" name="Evaluacion" id="txtEvaluacion" required onChange={this.onChange}  />                            
+                        </FormGroup>
+
+                        <FormGroup>
+                            <Label for="txtCalificacion">Calificación</Label>
+                            <Input type="text" name="Calificacion" id="txtCalificacion" required onChange={this.onChange}  />                            
+                        </FormGroup>
+
+                        <FormGroup className="float-right">
+                            <Button color="primary" >Calificar</Button>{' '}
+                            <Button color="secondary" onClick={this.closeDialogCalif}>Cerrar</Button>
+                        </FormGroup>
+                        <div className="clear"></div>                            
+                        </Form>
+                    </ModalBody>
+                </Modal>
             </div>            
          );
     }

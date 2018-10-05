@@ -4,6 +4,10 @@ import "./Components.css";
 
 class Alumno extends Component {
 
+    ingresarCalificaciones = (e) => {
+        this.props.abrirModalCalificaciones(e.target.id);
+    }
+
     render() { 
         return ( 
             // estilo de tarjeta de bootstrap ??
@@ -13,7 +17,7 @@ class Alumno extends Component {
                <td>{this.props.ApellidoPaterno}</td>
                <td>{this.props.ApellidoMaterno}</td>
                <td>
-                    <a href="javascript:;">
+                    <a href="#" id={this.props.IdAlumno} onClick={this.ingresarCalificaciones} >
                         {this.props.Matricula}
                     </a>
                </td>
@@ -23,7 +27,6 @@ class Alumno extends Component {
                <td>
                    <Button color="danger" onClick={this.props.eliminarAlumno} id={this.props.IdAlumno} >Eliminar</Button>
                </td>
-               <td id={this.props.IdAlumno} className="tdHidden"></td>
            </tr>
          );
     }

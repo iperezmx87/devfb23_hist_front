@@ -9,3 +9,35 @@
 .clear{
     clear: both;
 }
+
+.lander{
+    margin:0 auto;
+    text-align: center;
+}
+
+.button{
+    display: inline-block;
+    height: 300px;
+    width: 300px;
+    padding: 85px;
+    border-radius: 160px;
+}
+
+.button :hover{
+    text-decoration: none;
+}
+
+.button span{
+    font-size: 65px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.button p{
+    font-size: 30px;
+}
+
+.dvResultados{
+    max-height: 250px;
+    overflow-y: auto;
+}

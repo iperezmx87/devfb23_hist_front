@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import MyNavBar from './component/MyNavbar.js';
-import ListaAlumnos from './component/ListaAlumnos.js';
+import Routes from "./Routes.js";
 
 class App extends Component {
   render() {
@@ -8,7 +8,7 @@ class App extends Component {
       <div>
         <MyNavBar />
         <div className="container">
-          <ListaAlumnos />
+          <Routes />
         </div>
       </div>
     );

@@ -10,7 +10,7 @@ class MyNavBar extends Component {
             <div>
                 <Navbar color="dark" dark expand="md">
                     <div className="container">
-                        <NavbarBrand href="/">Dev.F Historial académico - alumnos</NavbarBrand>
+                        <NavbarBrand href="/">Dev.F Historial académico</NavbarBrand>
                     </div>
                 </Navbar>
           </div>
