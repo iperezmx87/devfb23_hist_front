@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Button} from 'reactstrap';
 import "./Components.css";
 
 class Alumno extends Component {
@@ -15,6 +16,9 @@ class Alumno extends Component {
                     <a href="javascript:;">
                         {this.props.Matricula}
                     </a>
+               </td>
+               <td>
+                   <Button color="danger" onClick={this.props.eliminarAlumno} id={this.props.IdAlumno} >Eliminar</Button>
                </td>
                <td id={this.props.IdAlumno} className="tdHidden"></td>
            </tr>

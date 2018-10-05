@@ -23,7 +23,8 @@ class ListaAlumnos extends Component {
             Nombre:"",
             ApellidoMaterno:"",
             ApellidoPaterno:"",
-            Matricula:""
+            Matricula:"",
+            Plantel:""
         };
     }
 
@@ -48,9 +49,10 @@ class ListaAlumnos extends Component {
 
         axios.post(`${Constantes.getUrl_api()}alumno/`, {
             Nombre:this.state.Nombre,
-            ApellidoMaterno:this.state.ApellidoPaterno,
-            ApellidoPaterno:this.state.ApellidoMaterno,
-            Matricula:this.state.Matricula
+            ApellidoMaterno:this.state.ApellidoMaterno,
+            ApellidoPaterno:this.state.ApellidoPaterno,
+            Matricula:this.state.Matricula,
+            Plantel:this.state.Plantel
         })
         .then((response) => {
             alert(response.data.message);
@@ -60,7 +62,6 @@ class ListaAlumnos extends Component {
         .catch(error => {
             alert(error);
         });
-        
     }
 
     onChange = (e) => {
@@ -72,6 +73,18 @@ class ListaAlumnos extends Component {
     openDialog = () => {
         this.setState({
             modal:!this.state.modal
+        });
+    }
+
+    eliminarAlumno = (e) =>{
+        alert(e.target.id);
+        
+        axios.delete(`${Constantes.getUrl_api()}alumno/${e.target.id}/`)
+        .then((response) => {
+            alert("Alumno eliminado correctamente");
+        })
+        .catch((error) => {
+            alert(error);
         });
     }
 
@@ -91,13 +104,15 @@ class ListaAlumnos extends Component {
                     <div className="clear"></div>
                     <div className="spacing" ></div>
 
-                    <Table>
+                    <Table hover>
                         <thead>
                             <tr>
                                 <th>Nombre</th>
                                 <th>Apellido Paterno</th>
                                 <th>Apellido Materno</th>
                                 <th>Matrícula</th>
+                                <th>Plantel</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -107,7 +122,9 @@ class ListaAlumnos extends Component {
                                                                            ApellidoMaterno={alumno.ApellidoMaterno}
                                                                            Matricula={alumno.Matricula}
                                                                            IdAlumno={alumno._id}
-                                                                           key={index} />)
+                                                                           key={index}
+                                                                           eliminarAlumno={this.eliminarAlumno}
+                                                                           Plantel={this.alumno.Plantel != undefined ? this.alumno.Plantel : ""} />)
                             }
                         </tbody>
                     </Table>
@@ -142,6 +159,11 @@ class ListaAlumnos extends Component {
                             <FormGroup>
                                 <Label for="txtMatricula">Matrícula</Label>
                                 <Input type="text" name="Matricula" id="txtMatricula" placeholder="Matrícula" required onChange={this.onChange} />
+                            </FormGroup>
+
+                             <FormGroup>
+                                <Label for="txtPlantel">Matrícula</Label>
+                                <Input type="text" name="Plantel" id="txtPlantel" placeholder="Plantel" required onChange={this.onChange} />
                             </FormGroup>
 
                             <FormGroup className="float-right">
